@@ -24,6 +24,7 @@ class CsvBehavior extends Behavior
         'headers' => true,
         'text' => false,
         'excel_bom' => false,
+        'array' => false, // true if data is array, false if entity
     ];
 
     /**
@@ -121,6 +122,8 @@ class CsvBehavior extends Behavior
     public function exportCsv($filename, $data, $options = array())
     {
         $config = $this->config();
+        debug($config);
+        debug($options);
         $options = array_merge($config, $options);
 
         if (!$this->_trigger('beforeExportCsv', array($filename, $data, $options))) {
@@ -136,7 +139,9 @@ class CsvBehavior extends Behavior
             // Iterate through and format data
             $firstRecord = true;
             foreach ($data as $record) {
-                $record = $record->toArray();
+                if (!$options['array']) {
+                    $record = $record->toArray();
+                }
                 $row = array();
                 foreach ($record as $field => $value) {
                     if ( !is_array($value) ) {
