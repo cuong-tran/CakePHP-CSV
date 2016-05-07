@@ -18,6 +18,7 @@ $options = array(
 	'headers' => true,
 	// If true, String $content is the data, not a path to the file
 	'text' => false,
+        'array' => false
 )
 ```
 
@@ -91,7 +92,9 @@ $Table->connection()->transactional(function () use ($Table, $entities) {
 
 ### Exporting
 
-* Populate an $this->data type array
+**Approach 1:** Entity
+
+* Populate a $this->data type entity
 
 ```php
 $data = $this->Post->find()->all();
@@ -100,6 +103,21 @@ $data = $this->Post->find()->all();
 * Export to a file in a writeable directory
 
 ```php
+$this->Posts->exportCsv($filepath, $data, $options);
+```
+
+**Approach 2:** Array
+
+* Populate an $this->data type array
+
+```php
+$data = $this->Post->find()->toArray();
+```
+
+* Export to a file in a writeable directory. In config, set option `array` to true
+
+```php
+$options['array'] = true;
 $this->Posts->exportCsv($filepath, $data, $options);
 ```
 
