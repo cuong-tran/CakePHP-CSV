@@ -122,8 +122,6 @@ class CsvBehavior extends Behavior
     public function exportCsv($filename, $data, $options = array())
     {
         $config = $this->config();
-        debug($config);
-        debug($options);
         $options = array_merge($config, $options);
 
         if (!$this->_trigger('beforeExportCsv', array($filename, $data, $options))) {
