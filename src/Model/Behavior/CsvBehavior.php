@@ -115,7 +115,7 @@ class CsvBehavior extends Behavior
      * Converts a data array into
      *
      * @param string $filename
-     * @param string $data
+     * @param string|array $data
      * @return void
      * @author Dean
      */
